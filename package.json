@@ -1,0 +1,11 @@
+{
+  "name": "chat-service",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "python app.py",
+    "build": "mkdir -p public && touch public/index.html && echo 'No build step required for Flask'"
+  },
+  "dependencies": {
+
+  }
+}
