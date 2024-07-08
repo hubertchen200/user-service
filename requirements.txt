@@ -9,3 +9,4 @@ click
 itsdangerous
 python-dotenv
 PyJWT
+flask-cors
