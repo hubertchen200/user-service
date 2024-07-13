@@ -33,5 +33,18 @@ def jwt_decode(token):
         return "INVALID_TOKEN"
 
 
-
-
+def check_token(headers):
+    token = headers.get('Authorization')
+    try:
+        if token is None:
+            return {"error": "Missing Token"}, 401
+        token = token.replace("Bearer ", "")
+        payload = jwt_decode(token)
+        if payload == "TOKEN_EXPIRED":
+            return {'error': "TOKEN_EXPIRED"}, 401
+        if payload == "INVALID_TOKEN":
+            return {'error': 'INVALID_TOKEN'}, 401
+        return {"data": payload}, 200
+    except Exception as e:
+        return {"error": f"message: {e}"}, 401
+  
