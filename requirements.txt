@@ -10,3 +10,4 @@ itsdangerous
 python-dotenv
 PyJWT
 flask-cors
+hubertchen-package==0.6

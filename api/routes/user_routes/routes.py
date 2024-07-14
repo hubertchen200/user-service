@@ -1,11 +1,11 @@
 from . import user_bp
 from flask import request, jsonify
 from api.user import get_user, create_user, delete_user, sign_in
-from api.jwt_token.my_jwt import check_token
+from hubertchen_package import my_jwt
 
 @user_bp.route('/user', methods = [ 'GET', 'POST', 'DELETE'])
 def my_user():
-    data, code = check_token(request.headers)
+    data, code = my_jwt.check_token(request.headers)
     if code == 401:
         return jsonify(data), code
     if request.method == "GET":
@@ -21,7 +21,7 @@ def my_user():
 
 @user_bp.route('/signin', methods = ['POST'])
 def my_signin():
-    data, code = check_token(request.headers)
+    data, code = my_jwt.check_token(request.headers)
     if code == 401:
         return jsonify(data), code
     if request.method == "POST":
