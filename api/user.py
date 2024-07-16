@@ -69,7 +69,7 @@ def sign_in(email, password):
         if len(user) == 1:
             hashed_password = user[0][0].encode('utf-8')
             if bcrypt.checkpw(password.encode('utf-8'), hashed_password):
-                return jsonify({'status':'signed_in'})
+                return jsonify({'status':'success', "data":user[0]})
         return jsonify({'error':'password and email incorrect'})
     except Exception as e:
         data = {"error": f"message: {e}"}
