@@ -64,12 +64,18 @@ def sign_in(email, password):
     try:
         conn = get_connection()
         cursor = conn.cursor()
-        cursor.execute('SELECT password_hash FROM users where (email = %s or username = %s)', (email, email))
-        user = cursor.fetchall()
-        if len(user) == 1:
-            hashed_password = user[0][0].encode('utf-8')
+        cursor.execute('SELECT password_hash, first_name, last_name, email, username FROM users where (email = %s or username = %s)', (email, email))
+        users = cursor.fetchall()
+        if len(users) == 1:
+            hashed_password = users[0][0].encode('utf-8')
             if bcrypt.checkpw(password.encode('utf-8'), hashed_password):
-                return jsonify({'status':'success', "data":user[0]})
+                return jsonify({'status':'success', "data":{
+                    "firstname": users[0][1],
+                    "lastname": users[0][2],
+                    "email": users[0][3],
+                    "username": users[0][4]
+                }
+                })
         return jsonify({'error':'password and email incorrect'})
     except Exception as e:
         data = {"error": f"message: {e}"}
