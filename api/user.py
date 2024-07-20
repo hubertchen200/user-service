@@ -64,7 +64,7 @@ def sign_in(email, password):
     try:
         conn = get_connection()
         cursor = conn.cursor()
-        cursor.execute('SELECT password_hash, first_name, last_name, email, username FROM users where (email = %s or username = %s)', (email, email))
+        cursor.execute('SELECT password_hash, id, first_name, last_name, email, username FROM users where (email = %s or username = %s)', (email, email))
         users = cursor.fetchall()
         if len(users) == 1:
             hashed_password = users[0][0].encode('utf-8')
