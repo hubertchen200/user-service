@@ -5,14 +5,14 @@ from hubertchen_package import my_jwt
 
 @user_bp.route('/user', methods = [ 'GET', 'POST', 'DELETE'])
 def my_user():
+    if request.method == 'POST':
+        user = request.get_json()
+        return create_user(user["email"], user["firstname"], user["lastname"], user["password"], user["username"])
     data, code = my_jwt.check_token(request.headers)
     if code == 401:
         return jsonify(data), code
     if request.method == "GET":
         return get_user()
-    elif request.method == 'POST':
-        user = request.get_json()
-        return create_user(user["email"], user["firstname"], user["lastname"], user["password"], user["username"])
     elif request.method == 'DELETE':
         id = request.args.get("id", default=None, type=int)
         return delete_user(id)
@@ -21,9 +21,9 @@ def my_user():
 
 @user_bp.route('/signin', methods = ['POST'])
 def my_signin():
-    data, code = my_jwt.check_token(request.headers)
-    if code == 401:
-        return jsonify(data), code
+    # data, code = my_jwt.check_token(request.headers)
+    # if code == 401:
+    #     return jsonify(data), code
     if request.method == "POST":
         body = request.get_json()
         return sign_in(body['email'], body['password'])
