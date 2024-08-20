@@ -37,11 +37,11 @@ def create_user(email, firstname, lastname, password, username):
         user_data = (email, firstname, lastname, hashed, username)
         cursor.execute(insert_query, user_data)
         conn.commit()
-        return jsonify({"status":"success"}), 201
+        return {"status":"success"}
     except Exception as e:
         print(f"failed: {e}")
         data = {"error": f"message: {e}"}
-        return jsonify(data)
+        return data
 
 
 # create_user("abc", "abc", "abc", "abc")

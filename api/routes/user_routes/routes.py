@@ -7,7 +7,10 @@ from hubertchen_package import my_jwt
 def my_user():
     if request.method == 'POST':
         user = request.get_json()
-        return create_user(user["email"], user["firstname"], user["lastname"], user["password"], user["username"])
+        result = create_user(user["email"], user["firstname"], user["lastname"], user["password"], user["username"])
+        if 'error' in result.keys():
+            return jsonify(result), 400
+        return jsonify(result), 201
     data, code = my_jwt.check_token(request.headers)
     if code == 401:
         return jsonify(data), code
