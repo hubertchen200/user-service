@@ -24,9 +24,12 @@ def my_user():
 
 @user_bp.route('/signin', methods = ['POST'])
 def my_signin():
-    # data, code = my_jwt.check_token(request.headers)
-    # if code == 401:
-    #     return jsonify(data), code
+
     if request.method == "POST":
         body = request.get_json()
-        return sign_in(body['email'], body['password'])
+        result = sign_in(body['email'], body['password'])
+        if 'error' in result.keys():
+            if 'password and/or email incorrect' == result['error']:
+                return jsonify(result), 401
+            return jsonify(result), 500
+        return jsonify(result), 200
