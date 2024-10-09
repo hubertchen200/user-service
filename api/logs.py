@@ -35,6 +35,7 @@ def get_logs(app_name, log_type, source, date_from, date_to):
                 "timestamp": row[7]
             }
             logs.append(log)
+        print(logs)
         return jsonify(logs)
     except Exception as e:
         print(f"failed: {e}")

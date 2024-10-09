@@ -10,8 +10,8 @@ def log():
             return jsonify(result), 400
         return jsonify(result), 201
     if request.method == "GET":
-        data = request.get_json()
-        return get_logs(data["app_name"], data["log_type"], data["source"], data["date_from"], data["date_to"])
+        print(request.args)
+        return get_logs(request.args.get('app_name'), request.args.get('log_type'), request.args.get('source'), request.args.get('date_from'), request.args.get('date_to'))
 
 
    
