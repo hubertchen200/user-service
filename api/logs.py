@@ -52,8 +52,7 @@ def set_default_values(object):
         except:
             object[field] = 'null'
 
-def add(x, y):
-    return x + y
+
 
 
 
