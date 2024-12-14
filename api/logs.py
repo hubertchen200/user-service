@@ -52,8 +52,8 @@ def set_default_values(object):
         except:
             object[field] = 'null'
 
-get_logs("app1", "temp", "alarm", "2024-10-06", "2024-10-9")
-
+def add(x, y):
+    return x + y
 
 
 
